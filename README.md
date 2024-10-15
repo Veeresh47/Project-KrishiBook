@@ -5,10 +5,10 @@ a Social media platform for farmers to grow themselves using our platform and
 * To provide real-time market insights and demand trends for agricultural products.
 * To facilitate knowledge sharing through diverse content formats.
 
-  Team
+Team
     leader and plan by Sharath196266
     Veeresh47, Darshan kumar, Varun Kumar
 
-   co-ordinator
-    Prof. TG
-    Gec hassan
+Co-Ordinator
+  Prof. TG
+  Gec hassan
