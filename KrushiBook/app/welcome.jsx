@@ -16,12 +16,12 @@ const welcome = () => {
       <View style={styles.container}> 
         
         {/*welcome image*/}
-        <Image source={require('../assets/images/image.png')} />
+        <Image style={styles.welcomeImage} resizeMode='contain' source={require('../assets/images/welcom02.png')} />
 
         {/*welcome text*/}
-        <View style={{gap:20}}>
-            <Text style={styles.title}>KrushiBook</Text>
-            <Text style={styles.punchline}>Connect, Learn and Grow</Text>
+        <View style={{gap:10}}>
+            <Text style={styles.title}>KrishiBook</Text>
+            <Text style={styles.punchline}>Where every crop has its story—let’s grow together!</Text>
 
         </View>
       </View>
@@ -30,12 +30,12 @@ const welcome = () => {
         <Button 
         title="Getting Started"
         buttonStyle={{marginHorizontal:wp(3)}}  
-        onpress={()=>{router.push('/signUp')}}
+        onpress={()=>{router.push('/signup')}}
         />
         <View style={styles.bottomTextContainer}>
-          <Text style={[styles.loginText, {color:theme.colors.primaryDark, fontWeight:theme.fonts.semiBold}]}>Already have an account!</Text>
+          <Text style={styles.loginText}>Already have an account!</Text>
           <Pressable onPress={()=>{router.push('/login')}}>
-            <Text style={styles.loginTex}>Login</Text>
+            <Text style={{color:theme.colors.primaryDark, fontWeight:theme.fonts.bold,fontSize:hp(1.8)}}>Login</Text>
           </Pressable>
         </View>
       </View>
@@ -47,27 +47,29 @@ export default welcome
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.97,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: 'white',
-    marginHorizontal: wp(4),
+    backgroundColor:'white',
+    paddingHorizontal: wp(4),
   },
   welcomeImage: {
-    width: wp(100),
-    height: hp(60),
+    width: wp(90),
+    height: hp(45),
+    alignSelf: 'center',
+    opacity:0.88,
   },
   title:{
-    color:theme.colors.primary,
-    fontSize: hp(4),
+    color:theme.colors.text,
+    fontSize: hp(6),
     textAlign: 'center',
     fontWeight:theme.fonts.extraBold,
   },
   punchline:{
-    color: theme.colors.gray,
-    fontSize: hp(2),
+    color: theme.colors.text,
+    fontSize: hp(1.9),
     textAlign: 'center',
-    marginHorizontal: wp(10),
+    paddingHorizontal: wp(10),
 
   },
   footer:{
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     gap:5,
   },
   loginText:{
-    color:theme.colors.gray,
-    fontSize:hp(1.5),
+    color:theme.colors.text,
+    fontSize:hp(1.8),
   },
 }) 
