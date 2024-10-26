@@ -1,7 +1,7 @@
  import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import {theme} from '../constants/theme'
-import {hp} from '../constants/helpers/common'
+import {hp,wp} from '../constants/helpers/common'
 import Loading from './Loading'
 const Button = ({
     title='',
@@ -19,7 +19,7 @@ const Button = ({
         }, 
         shadowRadius:8,
         shadowOpacity:0.2,
-        elevation:8,
+        elevation:4
     }
     if(loading){
         return(
