@@ -9,42 +9,27 @@ import { theme } from '../constants/theme';
 import { hp, wp } from '../constants/helpers/common'
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { supabase } from './lib/supbase';
+import { useRef } from 'react';
 
 
 const signup = () => {
+
   const router =useRouter();
+  const emailRef= useRef("")
+  const passwordRef= useRef("")
+  const nameRef= useRef("")
+  const [loading, setLoading] = useState(false);
   
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
 
-  async function onSubmit () {
+  const onSubmit = async ()=> {
 
-    if(!email || !password || !name || !phone) {
+    if(!emailRef.current || !passwordRef.current) {
       Alert.alert("Sign up","Please fill the fields!");
-      return
+      return;
     }
     
     setLoading(true);
-
-    const {data:{session},error}=await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    console.log('session',session)
-    console.log('error',error)
-
-    if(error){
-      Alert.alert("Sign up",error.message)
-    }
-
-  }
+  };
   
   return (
     <ScreenWrapper bg="white">
@@ -54,7 +39,8 @@ const signup = () => {
 
           {/*Welcom Text*/}
           <View>
-            <Text style={styles.welcomeText}>Let's Get Started</Text>
+            <Text style={styles.welcomeText}>Let's,</Text>
+            <Text style={styles.welcomeText}>Get Started</Text>
           </View>
 
           {/*form input*/}
@@ -65,27 +51,27 @@ const signup = () => {
               <Input 
               icon={ <Icon name="user" size={24} strokeWidth={1.6} /> }
               placeholder="Enter your Name"
-              onChangeText={(text)=>setName(text)}
+              onChangeText={value=>nameRef.current=value}
               />
-              <Input 
-              icon={ <Icon name="phone" size={24} strokeWidth={1.6} /> }
-              placeholder="Enter your Phone Number"
-              type="phone number"
-              onChangeText={(number)=>setPhone(number)}
-              />
+
               <Input 
               icon={ <Icon name="envelope" size={20} strokeWidth={1.6} /> }
               placeholder="Enter your email"
-              onChangeText={(text)=>setEmail(text)}
+              onChangeText={value=>emailRef.current=value}
               />
+
               <Input 
               icon={ <Icon name="lock" size={26} strokeWidth={1.6} /> }
               placeholder="Enter your password"
               secureTextEntry
-              onChangeText={(text)=>setPassword(text)}
+              onChangeText={value=>passwordRef.current=value}
               />
+
              {/*Buton*/}
-             <Button title={'Sign up'} loading={true} onPress={onSubmit}/>
+              
+                <Button title={'Sign up'} loading={loading} onpress={onSubmit}/>
+             
+
             </View>
             {/*footer*/}
             <View style={styles.footer}>

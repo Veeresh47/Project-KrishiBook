@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Pressable } from 'react-native'
+import { StyleSheet, Text, View,Pressable,Alert } from 'react-native'
 import React, { useRef, useState } from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,8 +15,18 @@ const login = () => {
   const emailRef= useRef("")
   const passwordRef= useRef("")
   const [loading, setLoading]=useState(false);
-  const onSubmit = async()=>{
-    loading=true;
+  
+  const onSubmit = ()=>{
+    if(!emailRef.current || !passwordRef.current){
+      Alert.alert("Login","Please fill the fields!");
+      return;
+    }
+    setLoading(true);
+    console.log('session',session)
+    console.log('error',error)
+    if(error){
+      Alert.alert("Login",error.message)
+    }
   }
   
   return (
@@ -52,7 +62,8 @@ const login = () => {
              <Text style={styles.forgotPassword }>Forgot Password?</Text>
              </Pressable>
              {/*Buton*/}
-             <Button title={'Login'} loading={loading} onpress={onSubmit}/>
+            
+             <Button title={'Login'} loading={loading} onpress={onSubmit} />
               
              
             </View>
