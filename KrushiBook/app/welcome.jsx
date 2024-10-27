@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(4),
   },
   welcomeImage: {
-    width: wp(80),
+    width: wp(85),
     height: hp(45),
     alignSelf: 'center',
-    opacity:0.82,
+    opacity:0.75,
   },
   title:{
     color:theme.colors.text,

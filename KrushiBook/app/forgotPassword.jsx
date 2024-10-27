@@ -15,8 +15,11 @@ const login = () => {
   const emailRef= useRef("")
   const passwordRef= useRef("")
   const [loading, setLoading]=useState(false);
-  const onSubmit = async()=>{
-    loading=true;
+  const onSubmit =async()=>{
+    if(!emailRef.current|| !passwordRef.current){
+      Alert.alert("Login","Please fill the fields!")
+      return
+    }
   }
   
   return (
@@ -27,7 +30,7 @@ const login = () => {
 
           {/*Welcom Text*/}
           <View>
-            <Text style={styles.welcomeText}>Hey,</Text>
+            <Text style={styles.welcomeText}>forgot,</Text>
             <Text style={styles.welcomeText}>Welcome Back</Text>
           </View>
 
@@ -41,20 +44,15 @@ const login = () => {
               placeholder="Enter your email"
               onChangeText={value=>emailRef.current=value}
               />
-              
               <Input 
               icon={ <Icon name="lock" size={26} strokeWidth={1.6} /> }
               placeholder="Enter your password"
               secureTextEntry
               onChangeText={value=>passwordRef.current=value}
               />
-              <Pressable onPress={()=>router.push('/forgotPassword')}>
              <Text style={styles.forgotPassword }>Forgot Password?</Text>
-             </Pressable>
              {/*Buton*/}
-             <Button title={'Login'} loading={loading} onpress={onSubmit}/>
-              
-             
+             <Button title={'login'} loading={loading} onPress={onSubmit}/>
             </View>
             {/*footer*/}
             <View style={styles.footer}>
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
     color:theme.colors.text,
   },
   form:{
-    gap:20,
+    gap:25,
   },
 forgotPassword:{
   textAlign:'right',

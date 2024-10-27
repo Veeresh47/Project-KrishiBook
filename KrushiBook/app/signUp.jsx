@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View ,Pressable} from 'react-native'
-import React, { useRef, useState } from 'react'
+import { StyleSheet, Text, View ,Pressable, Alert} from 'react-native'
+import React, {useState } from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BackButton from '../components/BackButton';
@@ -9,16 +9,41 @@ import { theme } from '../constants/theme';
 import { hp, wp } from '../constants/helpers/common'
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { supabase } from './lib/supbase';
+
+
 const signup = () => {
-  const router =useRouter()
-  const emailRef= useRef("")
-  const passwordRef= useRef("")
-  const [loading, setLoading]=useState(false);
-  const onSubmit =async()=>{
-    if(!emailRef.current|| !passwordRef.current){
-      Alert.alert("Login","Please fill the fields!")
+  const router =useRouter();
+  
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+
+  async function onSubmit () {
+
+    if(!email || !password || !name || !phone) {
+      Alert.alert("Sign up","Please fill the fields!");
       return
     }
+    
+    setLoading(true);
+
+    const {data:{session},error}=await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    console.log('session',session)
+    console.log('error',error)
+
+    if(error){
+      Alert.alert("Sign up",error.message)
+    }
+
   }
   
   return (
@@ -29,29 +54,38 @@ const signup = () => {
 
           {/*Welcom Text*/}
           <View>
-            <Text style={styles.welcomeText}>Hey,</Text>
-            <Text style={styles.welcomeText}>Welcome Back</Text>
+            <Text style={styles.welcomeText}>Let's Get Started</Text>
           </View>
 
           {/*form input*/}
             <View style={styles.form}>
-              <Text style={{fontSize:hp(1.5), color:theme.colors.text }}>
-                Please login to continue
+              <Text style={{fontSize:hp(2), color:theme.colors.text }}>
+                Please fill the details to create an account
               </Text>
               <Input 
-              icon={ <Icon name="envelope" size={26} strokeWidth={1.6} /> }
+              icon={ <Icon name="user" size={24} strokeWidth={1.6} /> }
+              placeholder="Enter your Name"
+              onChangeText={(text)=>setName(text)}
+              />
+              <Input 
+              icon={ <Icon name="phone" size={24} strokeWidth={1.6} /> }
+              placeholder="Enter your Phone Number"
+              type="phone number"
+              onChangeText={(number)=>setPhone(number)}
+              />
+              <Input 
+              icon={ <Icon name="envelope" size={20} strokeWidth={1.6} /> }
               placeholder="Enter your email"
-              onChangeText={value=>emailRef.current=value}
+              onChangeText={(text)=>setEmail(text)}
               />
               <Input 
               icon={ <Icon name="lock" size={26} strokeWidth={1.6} /> }
               placeholder="Enter your password"
               secureTextEntry
-              onChangeText={value=>passwordRef.current=value}
+              onChangeText={(text)=>setPassword(text)}
               />
-             <Text style={styles.forgotPassword }>Forgot Password?</Text>
              {/*Buton*/}
-             <Button title={'login'} loading={loading} onPress={onSubmit}/>
+             <Button title={'Sign up'} loading={true} onPress={onSubmit}/>
             </View>
             {/*footer*/}
             <View style={styles.footer}>
@@ -83,11 +117,6 @@ const styles = StyleSheet.create({
   form:{
     gap:25,
   },
-forgotPassword:{
-  textAlign:'right',
-  fontWeight:theme.fonts.semiBold,
-  color:theme.colors.text,
-},
 footer:{
   flexDirection:'row',
   gap:5,
@@ -97,7 +126,7 @@ footer:{
 footerText:{
   textAlign:'center',
   color:theme.colors.text,
-  fontSize:hp(1.6),
+  fontSize:hp(1.8),
 },
 
 })
