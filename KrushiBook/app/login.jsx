@@ -9,6 +9,7 @@ import { theme } from '../constants/theme';
 import { hp, wp } from '../constants/helpers/common'
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { supabase } from '../app/lib/supabase';
 
 const login = () => {
   const router =useRouter()
@@ -16,13 +17,21 @@ const login = () => {
   const passwordRef= useRef("")
   const [loading, setLoading]=useState(false);
   
-  const onSubmit = ()=>{
+  const onSubmit = async()=>{
+
     if(!emailRef.current || !passwordRef.current){
       Alert.alert("Login","Please fill the fields!");
       return;
     }
+    let email = emailRef.current.trim();
+    let password = passwordRef.current.trim();
+
     setLoading(true);
-    console.log('session',session)
+    const {error}= await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    setLoading(false);
     console.log('error',error)
     if(error){
       Alert.alert("Login",error.message)
@@ -114,4 +123,4 @@ footerText:{
   fontSize:hp(1.8),
 },
 
-})
+}) 

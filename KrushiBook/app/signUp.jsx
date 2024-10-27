@@ -10,6 +10,7 @@ import { hp, wp } from '../constants/helpers/common'
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { useRef } from 'react';
+import { supabase } from './lib/supabase';
 
 
 const signup = () => {
@@ -28,9 +29,26 @@ const signup = () => {
       return;
     }
     
+    let name = nameRef.current.trim();
+    let email = emailRef.current.trim();
+    let password = passwordRef.current.trim();
+    
     setLoading(true);
-  };
-  
+
+    const {
+      data:{session}, error}=supabase.auth.signUp({
+        email,
+        password,
+        options:{data:{name}},
+  });
+  setLoading(false);
+  console.log('session',session)
+  console.log('error',error)
+  if(error){
+    Alert.alert("Sign up",error.message)
+
+  }}
+
   return (
     <ScreenWrapper bg="white">
         <StatusBar style="dark"/>
