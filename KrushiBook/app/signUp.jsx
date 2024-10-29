@@ -36,14 +36,17 @@ const signup = () => {
     setLoading(true);
 
     const {
-      data:{session}, error}=supabase.auth.signUp({
+      data:{session}, error}= await supabase.auth.signUp({
         email,
         password,
-        options:{data:{name}},
+        options:{data:{name}}
+        
   });
+
   setLoading(false);
+
   console.log('session',session)
-  console.log('error',error)
+ console.log('error',error)
   if(error){
     Alert.alert("Sign up",error.message)
 
