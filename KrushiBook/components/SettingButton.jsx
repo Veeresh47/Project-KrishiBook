@@ -2,21 +2,25 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from '../constants/theme';
+import { useRouter } from 'expo-router';
 
-const  BackButton = ({size=25,router}) => {
+const  SettingButton = ({size=30}) => {
+const router=useRouter();
   return (
-    <Pressable onPress={()=> router.back()} style={styles.button}>
-        <Icon name='chevron-left' strokeWidth={3} width={23} size={size} color='theme.colors.text'/>
+    <Pressable onPress={()=>router.push('/settings')} style={styles.button}>
+        <Icon name='gear' strokeWidth={4} size={size} color='theme.colors.textLight'/>
     </Pressable>
   )
 }
 
-export default BackButton
+export default SettingButton
 
 const styles = StyleSheet.create({
     button:{
-        alignSelf:'flex-start',
+        position:'absolute',
+        right:0,
         padding:5,
+        borderCurve:'continuous',
         borderRadius:theme.radius.sm,
         backgroundColor:'rgba(0,0,0,0.07)',
 
