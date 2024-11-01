@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from '../constants/theme';
 
-const  BackButton = ({size=25,router}) => {
+const  BackButton = ({size=23,router}) => {
   return (
     <Pressable onPress={()=> router.back()} style={styles.button}>
         <Icon name='chevron-left' strokeWidth={3} width={23} size={size} color='theme.colors.text'/>

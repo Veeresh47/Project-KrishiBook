@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from '../constants/theme';
 import { useRouter } from 'expo-router';
 
-const  SettingButton = ({size=30}) => {
+const  SettingButton = ({size=25}) => {
 const router=useRouter();
   return (
     <Pressable onPress={()=>router.push('/settings')} style={styles.button}>

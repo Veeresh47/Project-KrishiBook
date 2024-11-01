@@ -6,7 +6,7 @@ import { TextInput } from 'react-native'
 
 const Input = (props) => {
   return (
-    <View style={[styles.container, props.containerStyles  && props.containerStyles ]}>
+    <View style={[styles.container, props.containerStyle  && props.containerStyle ]}>
         {
             props.icon && props.icon
         }

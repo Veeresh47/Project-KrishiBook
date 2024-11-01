@@ -15,8 +15,8 @@ import Avatar from '../../components/Avatar'
 const home = () => {
   
     const {user,setAuth}=useAuth();
-    console.log('user',user);
-    //console.log('user',user?.name);
+    //console.log('user',user);
+    console.log('user',user?.email);
     const router =useRouter();
     
     const onLogout = async() => {
@@ -36,10 +36,10 @@ const home = () => {
         <View style={styles.icons}>
        
             <Pressable onPress={()=>router.push('/notifications')}>
-            <Icon name="heart-o" size={hp(3.2)} strokeWidth={2.4   } color={theme.colors.text}/>
+            <Icon name="heart-o" size={hp(3.2)} strokeWidth={3.2} color={theme.colors.textDark}/>
             </Pressable>
             <Pressable onPress={()=>router.push('/newPost')}>
-            <Icon name="plus-square-o" size={hp(3.8)} strokeWidth={1} color={theme.colors.text}/>
+            <Icon name="plus-square-o" size={hp(3.8)} strokeWidth={1} color={theme.colors.textDark}/>
             </Pressable>
             <Pressable onPress={()=>router.push("/profile")}>
             <Avatar

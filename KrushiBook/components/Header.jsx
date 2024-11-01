@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         gap:18,
     },
     title:{
-        fontSize:hp(2.7),
+        fontSize:hp(2.8),
         fontWeight:theme.fonts.semiBold,
         color:theme.colors.textDark,
     },

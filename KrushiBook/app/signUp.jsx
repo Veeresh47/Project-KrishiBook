@@ -40,7 +40,6 @@ const signup = () => {
         email,
         password,
         options:{data:{name}}
-        
   });
 
   setLoading(false);

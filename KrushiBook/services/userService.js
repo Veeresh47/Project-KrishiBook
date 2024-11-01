@@ -2,15 +2,35 @@ import { supabase } from "../app/lib/supabase";
 
 export const getUserData =async(userID)=>{
     try{
-        const {data,user}= await supabase
+        const {data,error }= await supabase
         .from('profiles')
-         .select()
+         .select('*')
             .eq('id',userID)
-            .single();
+            .single()
+
             if(error){
                 return{success:false,msg:error?.message} ;
             }
+            console.log("usser",data)
+            return{success:true,data}; 
+            
 
+    }
+    catch(error){
+        console.log('error',error);
+        return{success:flase,msg:error.message};
+    }
+}
+export const updateUser =async(userID,data)=>{
+    try{
+        const {error}= await supabase
+        .from('profiles')
+         .update(data)
+         .eq('id',userID);
+            
+            if(error){
+                return{success:false,msg:error?.message} ;
+            }
             return{success:true,data}; 
 
     }

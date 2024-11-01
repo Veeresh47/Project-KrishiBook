@@ -15,6 +15,13 @@ import Avatar from '../../components/Avatar'
 const profile = () => {
     const {user,setAuth}=useAuth();
     const router=useRouter();
+
+    
+    //console.log("phone",user?.phoneNumber);
+    //console.log("name",user?.name);
+    //console.log("address",user?.address);
+    //console.log("BIo",user?.bio);
+     
   return (
     <ScreenWrapper bg="white">
         <UserHeader user={user} router={router}/>
@@ -23,6 +30,7 @@ const profile = () => {
 }
 
 const UserHeader=({user,router})=>{
+    
     return(
         <View style={{flex:1,backgroundColor:'white',paddingHorizontal:wp(4)}}>
             <View style={styles.headerContainer}>
@@ -35,15 +43,44 @@ const UserHeader=({user,router})=>{
             <View style={styles.avatarContainer}>
                 <Avatar 
                      uri={user?.image}
-                     size={hp(22)}
+                     size={hp(24)}
                      rounded={theme.radius.xxl*1.4}
                 />
-                    <Pressable style={styles.editIcon}>
-                    <Icon name='pencil' strokeWidth={3}  size={35} color={theme.colors.dark} />
+                    <Pressable style={styles.editIcon} onPress={()=>{router.push('/editProfile')}}>
+                    <Icon name='pencil' strokeWidth={2.5}  size={26} color={theme.colors.dark} />
                      </Pressable>
             </View>
-        </View>
 
+            {/*User Info*/}
+            <View style={{alignItems:'center', gap:4}}>
+                <Text style={styles.userName}>{user && user?.name}</Text>
+                { user && user.address &&
+                <Text style={styles.infoText}>{user && user?.address}</Text> }
+            </View>
+
+            {/*User Info - email phone bio*/}
+            <View style={{gap:20}}>
+            <View style={styles.info}>
+                 <Icon name="envelope-o" size={24} color={theme.colors.textLight}/>
+                <Text style={styles.infoTech}>{user && user.email}</Text>
+            </View>
+            {
+                user && user.phone &&  <View style={styles.info}>
+                <Icon name="phone" size={24} color={theme.colors.textLight}/>
+               
+               <Text style={styles.infoTech}>{user && user.phoneNumber}</Text>
+           </View>       
+            }
+            {
+                user && user.bio && 
+                 <View style={styles.info}>
+                <Icon name="info" size={24} color={theme.colors.textLight}/>
+               
+               <Text style={styles.infoTech}>{user && user.bio}</Text>                                                                                          
+        </View>
+}
+        </View>
+        </View>
         </View>
 
     )
@@ -63,31 +100,33 @@ const styles = StyleSheet.create({
     },
     headerContainer:{
         flexDirection:'row',
-       // flex:1,
         marginBottom:20,
-        marginHorizontal:wp(4), 
+        marginHorizontal:wp(1), 
+        justifyContent:'space-between',
     },
     avatarContainer:{
-        height:hp(22),
-        width:wp(14),
+        height:hp(24),
+        width:wp(24),
         alignSelf:'center',
         alignItems:'center',
+        
     },
     editIcon:{
         position:'absolute',
         bottom:0,
-        left:99,
+        right:-(wp(16)),
         padding:7,
-        borderRadius:45,
-        backgroundColor:"#f9f3f2",
+        borderRadius:50,
+        backgroundColor:"white",
         shadowColor:theme.colors.textLight,
         shadowOffset:{width:0,height:4},
+        shadowOpacity:0.5,
         shadowRadius:5,
-        elevation:5,
-        width:48,
+        elevation:7,
+        
     },
     infoTech:{
-        fontSize:hp(1.6),
+        fontSize:hp(2.5),
         fontWeight:'500',
         color:theme.colors.textLight,
 
@@ -107,8 +146,17 @@ const styles = StyleSheet.create({
         right: 0,
         borderRadius:theme.radius.sm,
         backgroundColor:'white',
-
+        marginRight:wp(1),
     },
-
+    info:{
+        flexDirection:'row',
+        alignItems:'center',
+        gap:10,
+    },
+    userName:{
+        fontSize:hp(3.5),
+        fontWeight:'semiBold',
+        color:theme.colors.text,
+    },
 
 })

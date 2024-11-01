@@ -32,7 +32,6 @@ const login = () => {
       email,
       password
     });
-
     setLoading(false);
      
     console.log('error',error)
