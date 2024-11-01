@@ -11,10 +11,8 @@ export const getUserData =async(userID)=>{
             if(error){
                 return{success:false,msg:error?.message} ;
             }
-            console.log("usser",data)
-            return{success:true,data}; 
             
-
+            return{success:true,data}; 
     }
     catch(error){
         console.log('error',error);

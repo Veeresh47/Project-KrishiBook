@@ -15,12 +15,6 @@ import Avatar from '../../components/Avatar'
 const profile = () => {
     const {user,setAuth}=useAuth();
     const router=useRouter();
-
-    
-    //console.log("phone",user?.phoneNumber);
-    //console.log("name",user?.name);
-    //console.log("address",user?.address);
-    //console.log("BIo",user?.bio);
      
   return (
     <ScreenWrapper bg="white">
