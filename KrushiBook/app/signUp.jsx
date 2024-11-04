@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,Pressable, Alert} from 'react-native'
+import { StyleSheet, Text, View ,Pressable, Alert, KeyboardAvoidingView, ScrollView} from 'react-native'
 import React, {useState } from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -53,6 +53,8 @@ const signup = () => {
 
   return (
     <ScreenWrapper bg="white">
+      
+        <ScrollView>
         <StatusBar style="dark"/>
         <View style={styles.container}>
           <BackButton router={router}/>
@@ -103,6 +105,9 @@ const signup = () => {
               </Pressable>
             </View>
         </View>  
+        
+        </ScrollView>
+      
     </ScreenWrapper>
   )
 } 
