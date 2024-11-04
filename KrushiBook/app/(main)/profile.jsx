@@ -10,7 +10,7 @@ import { theme } from '../../constants/theme';
 import { TouchableOpacity } from 'react-native'
 import SettingButton from '../../components/SettingButton'
 import Avatar from '../../components/Avatar'
-
+import { ScrollView } from 'react-native'
 
 const profile = () => {
     const {user,setAuth}=useAuth();
@@ -28,17 +28,19 @@ const UserHeader=({user,router})=>{
     return(
         <View style={{flex:1,backgroundColor:'white',paddingHorizontal:wp(4)}}>
             <View style={styles.headerContainer}>
-            <Header title={"Profile"} mb={10}/>
-            <TouchableOpacity style={styles.settingButton} >
-            <SettingButton />
-            </TouchableOpacity>
-        </View>
+                <Header title={"Profile"} mb={10}/>
+                <TouchableOpacity style={styles.settingButton} >
+                <SettingButton />
+                </TouchableOpacity>
+             </View>
+
+        <ScrollView style={{flex:1}}>
         <View style={{gap:15}}>
             <View style={styles.avatarContainer}>
                 <Avatar 
-                     uri={user?.image}
+                    uri={user?.image}
                      size={hp(24)}
-                     rounded={theme.radius.xxl*1.4}
+                     rounded={theme.radius.xxl*3.2}
                 />
                     <Pressable style={styles.editIcon} onPress={()=>{router.push('/editProfile')}}>
                     <Icon name='pencil' strokeWidth={2.5}  size={26} color={theme.colors.dark} />
@@ -58,25 +60,30 @@ const UserHeader=({user,router})=>{
                  <Icon name="envelope-o" size={24} color={theme.colors.textLight}/>
                 <Text style={styles.infoTech}>{user && user.email}</Text>
             </View>
+            
             {
-                user && user.phone &&  <View style={styles.info}>
+                user && user.phoneNumber &&  <View style={styles.info}>
                 <Icon name="phone" size={24} color={theme.colors.textLight}/>
                
                <Text style={styles.infoTech}>{user && user.phoneNumber}</Text>
            </View>       
             }
+            
             {
                 user && user.bio && 
                  <View style={styles.info}>
-                <Icon name="info" size={24} color={theme.colors.textLight}/>
+                    {/*<Icon name="info" size={24} color={theme.colors.textLight}/>*/}
                
-               <Text style={styles.infoTech}>{user && user.bio}</Text>                                                                                          
+                     <Text style={styles.infoTech}>{user && user.bio}
+                     </Text>                                                                                          
+                 </View>
+            }
         </View>
-}
+    
         </View>
+        
+        </ScrollView>
         </View>
-        </View>
-
     )
 }
 
@@ -103,12 +110,12 @@ const styles = StyleSheet.create({
         width:wp(24),
         alignSelf:'center',
         alignItems:'center',
-        
+
     },
     editIcon:{
         position:'absolute',
         bottom:0,
-        right:-(wp(16)),
+        right:-(wp(12)),
         padding:7,
         borderRadius:50,
         backgroundColor:"white",

@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        marginTop:5,
+        marginTop:3,
         gap:18,
     },
     title:{
-        fontSize:hp(2.8),
+        fontSize:hp(3),
         fontWeight:theme.fonts.semiBold,
         color:theme.colors.textDark,
     },

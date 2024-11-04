@@ -3,7 +3,7 @@ import React from 'react'
 import { theme } from '../constants/theme'
 import { hp } from '../constants/helpers/common'
 import {Image} from "expo-image"
-import { getUserImageSrc } from '../services/imageService'
+import { getUserImageSrc} from '../services/imageService'
 
 const Avatar =  ({
     uri,

@@ -11,7 +11,7 @@ export const getUserData =async(userID)=>{
             if(error){
                 return{success:false,msg:error?.message} ;
             }
-            
+        
             return{success:true,data}; 
     }
     catch(error){
