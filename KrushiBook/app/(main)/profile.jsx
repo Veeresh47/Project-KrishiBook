@@ -43,7 +43,7 @@ const UserHeader=({user,router})=>{
                      rounded={theme.radius.xxl*3.2}
                 />
                     <Pressable style={styles.editIcon} onPress={()=>{router.push('/editProfile')}}>
-                    <Icon name='pencil' strokeWidth={2.5}  size={26} color={theme.colors.dark} />
+                    <Icon name='pencil' strokeWidth={2.5}  size={20} color={theme.colors.dark} />
                      </Pressable>
             </View>
 
@@ -115,9 +115,9 @@ const styles = StyleSheet.create({
     editIcon:{
         position:'absolute',
         bottom:0,
-        right:-(wp(12)),
+        right:-(wp(10)),
         padding:7,
-        borderRadius:50,
+        borderRadius:theme.radius.sm,
         backgroundColor:"white",
         shadowColor:theme.colors.textLight,
         shadowOffset:{width:0,height:4},

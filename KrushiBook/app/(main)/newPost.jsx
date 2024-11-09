@@ -34,7 +34,7 @@ const newPost = () => {
                   />
                   <View style={{gap:2}}>
                     <Text style={styles.userName}>{user && user?.name}</Text>
-                    <Text style={styles.publicText}>Public</Text>
+                    <Text style={styles.publicText}>{user && user?.address}</Text>
                   </View>
               </View>
 
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   },
   publicText:{
     fontSize:hp(1.7),
+    flexDirection:"row",
     fontWeight:theme.fonts.medium,
     color:theme.colors.textLight,
   },

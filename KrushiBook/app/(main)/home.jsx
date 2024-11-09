@@ -32,14 +32,18 @@ const home = () => {
      <View style={styles.container}>
       {/*Header*/}
      <View style={styles.header}>
+     <Pressable onPress={()=>router.push('/weather')} style={{marginRight:hp(1)}}>
+            <Icon name="cloud" size={hp(3.8)} strokeWidth={1} color={theme.colors.textDark}/>
+            </Pressable>
      <Text style={styles.title}>KrishiBook</Text>
         <View style={styles.icons}>
        
-            <Pressable onPress={()=>router.push('/notifications')}>
-            <Icon name="heart-o" size={hp(3.2)} strokeWidth={3.2} color={theme.colors.textDark}/>
-            </Pressable>
+            
             <Pressable onPress={()=>router.push('/newPost')}>
             <Icon name="plus-square-o" size={hp(3.8)} strokeWidth={1} color={theme.colors.textDark}/>
+            </Pressable>
+            <Pressable onPress={()=>router.push('/notifications')}>
+            <Icon name="bell-o" size={hp(3.3)} strokeWidth={3.2} color={theme.colors.textDark}/>
             </Pressable>
             <Pressable onPress={()=>router.push("/profile")}>
             <Avatar
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'center',
-    gap:18,
+    gap:10,
 
   },
   lifeStyle:{

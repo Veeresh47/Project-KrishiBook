@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-//import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
-//import { WebView } from 'react-native-webview';
-
+import {theme} from "../constants/theme"
 
 
 const RichTextEditor = ({
@@ -10,14 +8,26 @@ const RichTextEditor = ({
     onChange,
 }) => {
   return (
+
+   <View style={{minHeight:285}}>  
     
-    <View style={{minHeight:285}}>
-        <Text>Editor</Text>
-     </View>
+    <Text>Editor</Text>
+    </View>
     
   )
 }
 
 export default RichTextEditor
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  richBar:{
+    borderTopRightRadius: theme.radius.xl,
+    borderTopLeftRadius: theme.radius.xl,
+    backgroundColor:theme.colors.gray,
+
+  },
+  lifeStyle:{
+
+  },
+
+})
