@@ -171,7 +171,8 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         paddingHorizontal:wp(4),
-
+        marginBottom:30,
+        gap:15,
     },
     avatar:{
         width:wp(45),

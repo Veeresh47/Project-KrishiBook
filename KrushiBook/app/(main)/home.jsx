@@ -1,16 +1,20 @@
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import ScreenWrapper from '../../components/ScreenWrapper'
 import { useRouter } from 'expo-router'
 import Button from '../../components/Button'
 import {useAuth} from '../../contexts/AuthContext'
-import { supabase } from '../lib/supabase'
+import { supabase, supabaseAnonKey } from '../lib/supabase'
 import { theme } from '../../constants/theme'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { hp, wp } from '../../constants/helpers/common'
 import Avatar from '../../components/Avatar'
+import { fetchPosts } from '../../services/postService'
+import PostCard from '../../components/PostCard'
+import Loading from '../../components/Loading'
+import {getUserData} from "../../services/userService"
 
-
+var limit =0; 
 
 const home = () => {
   
@@ -18,6 +22,43 @@ const home = () => {
     //console.log('user',user);
     //console.log('user',user?.email);
     const router =useRouter();
+    const [hasMore, setHasMore]=useState(true);
+
+    const [posts,setPosts]=useState([]);
+    const handlePostEvent= async(payload)=>{
+
+      if(payload.eventType == "INSERT" &&  payload?.new?.id){
+        let newPost={...payload.new};
+        let res= await getUserData(newPost.userId);
+        newPost.user=res.success? res.data:{};
+        setPosts(prevPosts=>[newPost,...prevPosts])
+      }
+
+    }
+    useEffect(()=>{
+      let postChannel =supabase
+      .channel("posts")
+      .on("postgres_changes", {event :'*',schema:"public", table:"posts"}, handlePostEvent)
+      .subscribe();
+       
+
+      //getPosts();
+
+      return () =>{
+        supabase.removeChannel(postChannel);
+      }
+    },[])
+
+    const getPosts=async ()=>{
+      //call the api here
+      if(!hasMore) return null;
+      limit = limit + 4;
+      let res= await fetchPosts(limit);
+       if(posts.length==res.data.length) setHasMore(false);
+      setPosts(res.data);
+       
+
+    }
     
     const onLogout = async() => {
       //setAuth(null);
@@ -32,9 +73,7 @@ const home = () => {
      <View style={styles.container}>
       {/*Header*/}
      <View style={styles.header}>
-     <Pressable onPress={()=>router.push('/weather')} style={{marginRight:hp(1)}}>
-            <Icon name="cloud" size={hp(3.8)} strokeWidth={1} color={theme.colors.textDark}/>
-            </Pressable>
+     
      <Text style={styles.title}>KrishiBook</Text>
         <View style={styles.icons}>
        
@@ -55,6 +94,35 @@ const home = () => {
             </Pressable>            
           </View>
         </View>
+
+        {/* posts */}
+        <FlatList
+        data={posts}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.lifeStyle}
+        keyExtractor={item=>item.id.toString()}
+        renderItem={({ item })=> <PostCard
+        item={item}
+        currentUser={user}
+        router={router}
+        />
+  }
+  onEndReached={()=>{
+    getPosts();
+  }}
+  onEndReachedThreshold={0}
+  ListFooterComponent={hasMore?(
+    <View style={{marginVertical:posts?.length==0? 200:30}}>
+      <Loading/>
+    </View>
+  ):(
+    <View style={{marginVertical:20}}>
+    <Text style={styles.noPosts}>NO More posts</Text>
+    </View>
+  )}
+  />
+      
+
     </View>
     </ScreenWrapper>
   )
@@ -101,7 +169,9 @@ const styles = StyleSheet.create({
   },
   noPosts:{
     fontSize:hp(2),
-    TextAlign:'center',
+    //TextAlign:'center',
+    alignItems:'center',
+    justifyContent:'center',
     color:theme.colors.text,
   },
   pill:{
