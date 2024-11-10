@@ -41,7 +41,7 @@ import { uploadFile } from "./imageService";
     try{
         const{data,error}=await supabase 
         .from("posts")
-        .select("*, user:profiles(id, name, image),postLikes(*)")
+        .select("*, user:profiles(id, name, image),postLikes(*), comments(count)")
         .order("created_at",{ascending:false})
         .limit(limit)
 
@@ -97,6 +97,48 @@ import { uploadFile } from "./imageService";
     }catch(error){
         console.log("post like error",error);
         return{success:false, msg:"could not remove like"}
+    }
+
+ }
+ export  const fetchPostDetails = async (postId)=>{
+    try{
+        const{data,error}=await supabase 
+        .from("posts")
+        .select("*, user:profiles(id, name, image),postLikes(*,user:profiles(id,name,image))")
+        .eq('id',postId)
+        .order("created_at",{ascending:false, foreignTable:'comments' })
+        .single()
+
+
+        if(error){
+            console.log("fetch post error",error);
+            return{success:false, msg:"could not able fetch post "}
+        }
+        return {success:true,data:data};
+
+    }catch(error){
+        console.log("fetch post error",error);
+        return{success:false, msg:"could not able fetch post "}
+    }
+
+ }
+ export  const createComment = async (comment)=>{
+    try{
+        const {data,error}= await supabase
+        .from("comments")
+        .insert(comment)
+        .select()
+        .single();
+
+        if(error){
+            console.log("comment error",error);
+            return{success:false, msg:"could not comment this post"}
+        }
+        return {success:true,data:data};
+
+    }catch(error){
+        console.log("comment error",error);
+        return{success:false, msg:"could not comment this post"}
     }
 
  }

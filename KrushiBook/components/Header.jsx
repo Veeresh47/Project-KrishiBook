@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         gap:18,
     },
     title:{
+        //flex:1,
         fontSize:hp(3),
         fontWeight:theme.fonts.semiBold,
         color:theme.colors.textDark,

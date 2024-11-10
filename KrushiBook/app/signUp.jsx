@@ -75,6 +75,12 @@ const signup = () => {
               placeholder="Enter your Name"
               onChangeText={value=>nameRef.current=value}
               />
+              
+              <Input 
+              icon={ <Icon name="leaf" size={26} strokeWidth={1.6} /> }
+              placeholder="Enter Farmer id"
+              secureTextEntry
+              />
 
               <Input 
               icon={ <Icon name="envelope" size={20} strokeWidth={1.6} /> }

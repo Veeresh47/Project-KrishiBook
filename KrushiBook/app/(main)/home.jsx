@@ -13,6 +13,7 @@ import { fetchPosts } from '../../services/postService'
 import PostCard from '../../components/PostCard'
 import Loading from '../../components/Loading'
 import {getUserData} from "../../services/userService"
+import { TouchableOpacity } from 'react-native'
 
 var limit =0; 
 
@@ -73,7 +74,9 @@ const home = () => {
      <View style={styles.container}>
       {/*Header*/}
      <View style={styles.header}>
-     
+      <View style={{marginRight:5}}>
+     <Icon name="leaf" size={hp(3.8)} strokeWidth={1} color={theme.colors.primary}/>
+     </View>
      <Text style={styles.title}>KrishiBook</Text>
         <View style={styles.icons}>
        
@@ -93,6 +96,7 @@ const home = () => {
             />
             </Pressable>            
           </View>
+          
         </View>
 
         {/* posts */}
@@ -106,6 +110,7 @@ const home = () => {
         currentUser={user}
         router={router}
         />
+        
   }
   onEndReached={()=>{
     getPosts();
@@ -124,6 +129,28 @@ const home = () => {
       
 
     </View>
+    <View style={styles.footer}>
+    <TouchableOpacity onPress={()=>router.push('/machines')}>
+      <Icon name="cogs" size={24}/>
+      <Text style={{fontSize:hp(1.6),alignItems:'center'} }>Machines</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>router.push('/govt')}>
+      <Icon name="institution" size={25}/>
+      <Text style={{fontSize:hp(1.6),alignItems:'center'}}>Govt</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>router.replace("home")}>
+      <Icon name="home" size={32}/>
+      <Text style={{fontSize:hp(1.6),alignItems:'center'}}> Home</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>router.push('/doctor')}>
+      <Icon name="user-md" size={28}/>
+      <Text style={{fontSize:hp(1.6),alignItems:'center'}}>Dr.Agri</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>router.push('/market')}>
+      <Icon name="shopping-cart" size={28}/>
+      <Text style={{fontSize:hp(1.6),alignItems:'center'}}>market</Text>
+      </TouchableOpacity>
+        </View>
     </ScreenWrapper>
   )
 }
@@ -143,7 +170,7 @@ const styles = StyleSheet.create({
     marginHorizontal:wp(4),
   },
   title:{
-    color:theme.colors.text,
+    color:theme.colors.textDark,
     fontSize:hp(3.3),
     fontWeight:theme.fonts.bold,
     marginRight:wp(20 ),
@@ -191,5 +218,18 @@ const styles = StyleSheet.create({
     fontSize:hp(1.2),
     fontWeight:theme.fonts.bold,
   },
+  footer:{
+
+    flexDirection:'row',
+    marginTop:4,
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginBottom:7,
+    marginHorizontal:wp(4),
+    borderRadius:40,
+  
+    
+    //marginVertical:wp(9),
+  }
 
 })
